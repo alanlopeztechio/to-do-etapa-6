@@ -1,5 +1,5 @@
+import ImageBox from '@/components/blocks/ImageBox'
 import {CustomPortableText} from '@/components/CustomPortableText'
-import ImageBox from '@/components/ImageBox'
 import type {ShowcaseProject} from '@/types'
 import type {PortableTextBlock} from 'next-sanity'
 

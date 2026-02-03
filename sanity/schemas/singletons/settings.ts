@@ -10,6 +10,19 @@ export default defineType({
   // liveEdit: true,
   fields: [
     defineField({
+      name: 'pagesRegistered',
+      title: 'Pages Registered',
+      type: 'array',
+      description: 'List of all pages registered in the site.',
+      of: [
+        {
+          type: 'url',
+          validation: (Rule) =>
+            Rule.required().uri({scheme: ['http', 'https'], allowRelative: true}),
+        },
+      ],
+    }),
+    defineField({
       name: 'menuItems',
       title: 'Menu Item list',
       description: 'Links displayed on the header of your site.',
@@ -32,32 +45,36 @@ export default defineType({
         },
       ],
     }),
+    // defineField({
+    //   name: 'footer',
+    //   description: 'This is a block of text that will be displayed at the bottom of the page.',
+    //   title: 'Footer Info',
+    //   type: 'array',
+    //   of: [
+    //     defineArrayMember({
+    //       type: 'block',
+    //       marks: {
+    //         annotations: [
+    //           {
+    //             name: 'link',
+    //             type: 'object',
+    //             title: 'Link',
+    //             fields: [
+    //               {
+    //                 name: 'href',
+    //                 type: 'url',
+    //                 title: 'Url',
+    //               },
+    //             ],
+    //           },
+    //         ],
+    //       },
+    //     }),
+    //   ],
+    // }),
     defineField({
       name: 'footer',
-      description: 'This is a block of text that will be displayed at the bottom of the page.',
-      title: 'Footer Info',
-      type: 'array',
-      of: [
-        defineArrayMember({
-          type: 'block',
-          marks: {
-            annotations: [
-              {
-                name: 'link',
-                type: 'object',
-                title: 'Link',
-                fields: [
-                  {
-                    name: 'href',
-                    type: 'url',
-                    title: 'Url',
-                  },
-                ],
-              },
-            ],
-          },
-        }),
-      ],
+      type: 'footer',
     }),
     defineField({
       name: 'ogImage',

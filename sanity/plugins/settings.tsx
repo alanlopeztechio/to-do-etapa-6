@@ -38,6 +38,7 @@ export const pageStructure = (typeDefArray: DocumentDefinition[]): StructureReso
     // Desktool can understand
     const singletonItems = typeDefArray.map((typeDef) => {
       return S.listItem()
+        .id(typeDef.name)
         .title(typeDef.title!)
         .icon(typeDef.icon)
         .child(S.editor().id(typeDef.name).schemaType(typeDef.name).documentId(typeDef.name))

@@ -1,5 +1,9 @@
-import ImageBox from '@/components/ImageBox'
-import {TimelineSection} from '@/components/TimelineSection'
+import CallToAction from '@/components/blocks/CallToAction'
+import Features from '@/components/blocks/Features'
+import Hero from '@/components/blocks/Hero'
+import ImageBox from '@/components/blocks/ImageBox'
+import Stats from '@/components/blocks/Stats'
+import {TimelineSection} from '@/components/blocks/TimelineSection'
 import type {PathSegment} from '@sanity/client/csm'
 import {PortableText, type PortableTextBlock, type PortableTextComponents} from 'next-sanity'
 import type {Image} from 'sanity'
@@ -58,6 +62,18 @@ export function CustomPortableText({
             timelines={items}
           />
         )
+      },
+      hero: ({value}) => {
+        return <Hero {...value} />
+      },
+      featureSection: ({value}) => {
+        return <Features {...value} />
+      },
+      statsSection: ({value}) => {
+        return <Stats {...value} />
+      },
+      ctaSection: ({value}) => {
+        return <CallToAction {...value} />
       },
     },
   }

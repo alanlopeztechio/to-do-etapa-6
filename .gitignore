@@ -44,3 +44,6 @@ yarn-error.log*
 .env
 studio/.env.development
 next-env.d.ts
+
+# clerk configuration (can include secrets)
+/.clerk/

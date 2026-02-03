@@ -1,16 +1,14 @@
 import '@/styles/index.css'
-import {CustomPortableText} from '@/components/CustomPortableText'
-import {Navbar} from '@/components/Navbar'
-import IntroTemplate from '@/intro-template'
+import {Footer} from '@/components/blocks/Footer'
+import {Navbar} from '@/components/blocks/Navbar'
 import {sanityFetch, SanityLive} from '@/sanity/lib/live'
 import {homePageQuery, settingsQuery} from '@/sanity/lib/queries'
 import {urlForOpenGraphImage} from '@/sanity/lib/utils'
 import {SpeedInsights} from '@vercel/speed-insights/next'
 import type {Metadata, Viewport} from 'next'
-import {toPlainText, type PortableTextBlock} from 'next-sanity'
+import {toPlainText} from 'next-sanity'
 import {VisualEditing} from 'next-sanity/visual-editing'
 import {draftMode} from 'next/headers'
-import {Suspense} from 'react'
 import {Toaster} from 'sonner'
 import {handleError} from './client-functions'
 import {DraftModeToast} from './DraftModeToast'
@@ -47,10 +45,16 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
   const {data} = await sanityFetch({query: settingsQuery})
   return (
     <>
-      <div className="flex min-h-screen flex-col bg-white text-black">
+      <div
+        className="min-h-screen"
+        style={{
+          background:
+            'linear-gradient(to bottom right, var(--gradient-from), var(--gradient-via), var(--gradient-to))',
+        }}
+      >
         <Navbar data={data} />
         <div className="mt-20 flex-grow px-4 md:px-16 lg:px-32">{children}</div>
-        <footer className="bottom-0 w-full bg-white py-12 text-center md:py-20">
+        {/* <footer className="bottom-0 w-full py-12 text-center md:py-20">
           {data?.footer && (
             <CustomPortableText
               id={data._id}
@@ -60,10 +64,8 @@ export default async function IndexRoute({children}: {children: React.ReactNode}
               value={data.footer as unknown as PortableTextBlock[]}
             />
           )}
-        </footer>
-        <Suspense>
-          <IntroTemplate />
-        </Suspense>
+        </footer> */}
+        <Footer columns={data?.footer?.columns} />
       </div>
       <Toaster />
       <SanityLive onError={handleError} />

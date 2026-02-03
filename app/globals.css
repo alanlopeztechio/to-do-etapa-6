@@ -1,3 +1,64 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #7c2d12;
+  --btn-primary: #f97316;
+  --btn-primary-hover: #ea580c;
+  --btn-secondary: transparent;
+  --btn-text: #ffffff;
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-hover: rgba(255, 247, 237, 0.9);
+  --card-border: rgba(253, 186, 116, 0.3);
+  --card-border-hover: rgba(251, 146, 60, 0.5);
+  --card-shadow: rgba(251, 146, 60, 0.12);
+  --card-shadow-hover: rgba(251, 146, 60, 0.25);
+  --card-glow: rgba(253, 186, 116, 0.3);
+  --gradient-from: #fffbeb;
+  --gradient-via: #fff7ed;
+  --gradient-to: #fefce8;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #1c1412;
+    --foreground: #fef3e2;
+    --btn-primary: #fb923c;
+    --btn-primary-hover: #f97316;
+    --btn-secondary: transparent;
+    --btn-text: #1c1412;
+    --card-bg: rgba(40, 28, 24, 0.8);
+    --card-bg-hover: rgba(60, 40, 32, 0.9);
+    --card-border: rgba(251, 146, 60, 0.2);
+    --card-border-hover: rgba(251, 146, 60, 0.4);
+    --card-shadow: rgba(251, 146, 60, 0.08);
+    --card-shadow-hover: rgba(251, 146, 60, 0.2);
+    --card-glow: rgba(251, 146, 60, 0.15);
+    --gradient-from: #1c1412;
+    --gradient-via: #261a17;
+    --gradient-to: #1f1614;
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-link {
+  transition: color 150ms ease-in-out;
+}
+
+.nav-link:hover {
+  color: var(--btn-primary);
+}

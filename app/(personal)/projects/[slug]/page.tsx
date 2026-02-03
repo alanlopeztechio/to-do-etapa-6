@@ -1,6 +1,6 @@
+import {Header} from '@/components/blocks/Header'
+import ImageBox from '@/components/blocks/ImageBox'
 import {CustomPortableText} from '@/components/CustomPortableText'
-import {Header} from '@/components/Header'
-import ImageBox from '@/components/ImageBox'
 import {studioUrl} from '@/sanity/lib/api'
 import {sanityFetch} from '@/sanity/lib/live'
 import {projectBySlugQuery, slugsByTypeQuery} from '@/sanity/lib/queries'

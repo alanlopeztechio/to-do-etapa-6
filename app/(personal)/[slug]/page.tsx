@@ -1,5 +1,5 @@
+import {Header} from '@/components/blocks/Header'
 import {CustomPortableText} from '@/components/CustomPortableText'
-import {Header} from '@/components/Header'
 import {sanityFetch} from '@/sanity/lib/live'
 import {pagesBySlugQuery, slugsByTypeQuery} from '@/sanity/lib/queries'
 import type {Metadata, ResolvingMetadata} from 'next'

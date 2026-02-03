@@ -1,4 +1,4 @@
-import ImageBox from '@/components/ImageBox'
+import ImageBox from '@/components/blocks/ImageBox'
 import type {MilestoneItem} from '@/types'
 
 export function TimelineItem({milestone}: {milestone: MilestoneItem}) {

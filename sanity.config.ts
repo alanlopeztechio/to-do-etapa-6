@@ -9,7 +9,16 @@ import {pageStructure, singletonPlugin} from '@/sanity/plugins/settings'
 import page from '@/sanity/schemas/documents/page'
 import project from '@/sanity/schemas/documents/project'
 import duration from '@/sanity/schemas/objects/duration'
+import footer from '@/sanity/schemas/objects/global/footer'
+import linkExternal from '@/sanity/schemas/objects/link/linkExternal'
+import linkInternal from '@/sanity/schemas/objects/link/linkInternal'
 import milestone from '@/sanity/schemas/objects/milestone'
+import body from '@/sanity/schemas/objects/modules/body'
+import ctaSection from '@/sanity/schemas/objects/modules/ctaSection'
+import featureItem from '@/sanity/schemas/objects/modules/featureItem'
+import featuresection from '@/sanity/schemas/objects/modules/featuresection'
+import herosection from '@/sanity/schemas/objects/modules/herosection'
+import statsection from '@/sanity/schemas/objects/modules/statsection'
 import timeline from '@/sanity/schemas/objects/timeline'
 import home from '@/sanity/schemas/singletons/home'
 import settings from '@/sanity/schemas/singletons/settings'
@@ -21,7 +30,6 @@ import {structureTool} from 'sanity/structure'
 
 const title =
   process.env.NEXT_PUBLIC_SANITY_PROJECT_TITLE || 'Next.js Personal Website with Sanity.io'
-
 export default defineConfig({
   basePath: studioUrl,
   projectId: projectId || '',
@@ -37,9 +45,21 @@ export default defineConfig({
       duration,
       page,
       project,
+      //global
+      footer,
+      //Link
+      linkExternal,
+      linkInternal,
       // Objects
       milestone,
       timeline,
+      // Objects
+      body,
+      herosection,
+      featureItem,
+      featuresection,
+      statsection,
+      ctaSection,
     ],
   },
   plugins: [
@@ -53,7 +73,7 @@ export default defineConfig({
     // Configures the global "new document" button, and document actions, to suit the Settings document singleton
     singletonPlugin([home.name, settings.name]),
     // Add an image asset source for Unsplash
-    unsplashImageAsset(),
+    //unsplashImageAsset(),
     // Vision lets you query your content with GROQ in the studio
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({defaultApiVersion: apiVersion}),

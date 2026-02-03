@@ -25,28 +25,34 @@ export const locations = {
   home: defineLocations({
     message: 'This document is used to render the front page',
     tone: 'positive',
-    locations: [{title: 'Home', href: resolveHref('home')!}],
+    locations: [{title: 'Home', href: resolveHref('home') || '/'}],
   }),
   project: defineLocations({
     select: {title: 'title', slug: 'slug.current'},
-    resolve: (doc) => ({
-      locations: [
-        {
-          title: doc?.title || 'Untitled',
-          href: resolveHref('project', doc?.slug)!,
-        },
-      ],
-    }),
+    resolve: (doc) => {
+      if (!doc) return {locations: []}
+      return {
+        locations: [
+          {
+            title: doc.title || 'Untitled',
+            href: resolveHref('project', doc.slug) || '/projects',
+          },
+        ],
+      }
+    },
   }),
   page: defineLocations({
     select: {title: 'title', slug: 'slug.current'},
-    resolve: (doc) => ({
-      locations: [
-        {
-          title: doc?.title || 'Untitled',
-          href: resolveHref('page', doc?.slug)!,
-        },
-      ],
-    }),
+    resolve: (doc) => {
+      if (!doc) return {locations: []}
+      return {
+        locations: [
+          {
+            title: doc.title || 'Untitled',
+            href: resolveHref('page', doc.slug) || '/',
+          },
+        ],
+      }
+    },
   }),
 }

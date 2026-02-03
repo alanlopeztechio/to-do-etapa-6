@@ -3,8 +3,10 @@ import {defineQuery} from 'next-sanity'
 export const homePageQuery = defineQuery(`
   *[_type == "home"][0]{
     _id,
+    _rev,
     _type,
     overview,
+    body,
     showcaseProjects[]{
       _key,
       ...@->{
@@ -51,6 +53,7 @@ export const projectBySlugQuery = defineQuery(`
 export const settingsQuery = defineQuery(`
   *[_type == "settings"][0]{
     _id,
+    _rev,
     _type,
     footer,
     menuItems[]{
@@ -59,6 +62,22 @@ export const settingsQuery = defineQuery(`
         _type,
         "slug": slug.current,
         title
+      }
+    },
+    footer{
+      ...,
+      columns[]{
+        ...,
+        links[]{
+          ...,
+          "url" : select(
+          _type == 'linkExternal' =>url,
+          _type == 'linkInternal' =>reference->slug.current
+          ),
+          _type == 'linkInternal' => {
+            "type_reference": reference->_type
+          }
+        }
       }
     },
     ogImage,

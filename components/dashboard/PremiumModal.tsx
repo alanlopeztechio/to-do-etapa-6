@@ -1,25 +1,28 @@
-'use client';
-
-import { api } from '@/convex/_generated/api';
-import { useQuery } from 'convex/react';
-import { Crown, CheckCircle2, Sparkles } from 'lucide-react';
+'use client'
 
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
   DialogDescription,
   DialogFooter,
-} from '@/components/ui/dialog';
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import {api} from '@/convex/_generated/api'
+import {useSettingsStore} from '@/stores/SettingsStore'
+import {useQuery} from 'convex/react'
+import {CheckCircle2, Crown, Sparkles} from 'lucide-react'
+import {PortableText, PortableTextReactComponents} from 'next-sanity'
 
 interface PremiumModalProps {
-  open: boolean;
-  onClose: () => void;
+  open: boolean
+  onClose: () => void
 }
 
-export default function PremiumModal({ open, onClose }: PremiumModalProps) {
-  const user = useQuery(api.users.getUserByClerkId);
+export default function PremiumModal({open, onClose}: PremiumModalProps) {
+  const user = useQuery(api.users.getUserByClerkId)
+
+  const limitMessage = useSettingsStore().dataClient?.limitMessage
 
   const premiumFeatures = [
     'Tareas ilimitadas sin restricciones',
@@ -28,13 +31,40 @@ export default function PremiumModal({ open, onClose }: PremiumModalProps) {
     'Sincronización en múltiples dispositivos',
     'Temas personalizados',
     'Reportes y estadísticas detalladas',
-  ];
+  ]
 
+  const myComponents: Partial<PortableTextReactComponents> = {
+    block: {
+      h1: ({children}) => (
+        <h1 className="text-5xl tracking-tight font-bold text-foreground sm:text-6xl lg:text-6xl text-balance leading-[1.4] sm:leading-[1.3] lg:leading-[1.5] mb-4">
+          {children}
+        </h1>
+      ),
+      h2: ({children}) => <h2 className="text-3xl font-semibold text-black">{children}</h2>,
+      h3: ({children}) => <h3 className="text-2xl font-semibold text-black">{children}</h3>,
+      h4: ({children}) => <h4 className="text-xl font-semibold text-black">{children}</h4>,
+      h5: ({children}) => <h5 className="text-xl font-semibold text-black">{children}</h5>,
+      h6: ({children}) => <h6 className="text-xl font-semibold text-black">{children}</h6>,
+      normal: ({children}) => <p className="max-w-2xl mx-auto text-black">{children}</p>,
+    },
+    marks: {
+      text_primary: ({children}) => (
+        <span className="text-transparent  bg-clip-text bg-gradient-to-r from-orange-500 to-yellow-500">
+          {children}
+        </span>
+      ),
+      text_secondary: ({children}) => (
+        <span className="font-light mx-auto max-w-2xl text-md text-muted-foreground text-pretty text-orange-700 ">
+          {children}
+        </span>
+      ),
+    },
+  }
   return (
     <Dialog
       open={open}
       onOpenChange={(isOpen) => {
-        if (!isOpen) onClose();
+        if (!isOpen) onClose()
       }}
     >
       <DialogContent className="max-w-xl border border-orange-200 bg-white">
@@ -53,15 +83,10 @@ export default function PremiumModal({ open, onClose }: PremiumModalProps) {
             </div>
           </div>
           <DialogDescription asChild>
-            <div className="rounded-xl bg-orange-50 border border-orange-200 p-4 mt-4">
-              <p className="text-orange-900 text-sm">
-                <span className="font-semibold">
-                  Has alcanzado el límite de tareas
-                </span>
-                <br />
-                Actualiza a Premium para disfrutar de tareas ilimitadas y mucho
-                más.
-              </p>
+            <div className="rounded-xl bg-orange-50 border border-orange-200 p-4 mt-4 flex items-center justify-center flex-col">
+              {limitMessage && (
+                <PortableText value={limitMessage!.titulo!} components={myComponents} />
+              )}
             </div>
           </DialogDescription>
         </DialogHeader>
@@ -72,18 +97,13 @@ export default function PremiumModal({ open, onClose }: PremiumModalProps) {
             Funciones Premium
           </h3>
           <ul className="space-y-2">
-            {premiumFeatures.map((feature, index) => (
-              <li
-                key={index}
-                className="flex items-start gap-3 text-orange-800"
-              >
-                <CheckCircle2
-                  size={20}
-                  className="text-green-500 flex-shrink-0 mt-0.5"
-                />
-                <span>{feature}</span>
-              </li>
-            ))}
+            {limitMessage?.features &&
+              limitMessage?.features.map((feature, index) => (
+                <li key={index} className="flex items-start gap-3 text-orange-800">
+                  <CheckCircle2 size={20} className="text-green-500 flex-shrink-0 mt-0.5" />
+                  <span>{feature}</span>
+                </li>
+              ))}
           </ul>
         </div>
 
@@ -97,11 +117,7 @@ export default function PremiumModal({ open, onClose }: PremiumModalProps) {
           </button>
           <form action="/api/stripe/checkout" method="POST">
             <input type="hidden" name="lookup_key" value="Sporifay-a34d140" />
-            <input
-              type="hidden"
-              name="customer_id"
-              value={user?.stripeCustomerId}
-            />
+            <input type="hidden" name="customer_id" value={user?.stripeCustomerId} />
             <button
               id="checkout-and-portal-button"
               type="submit"
@@ -113,5 +129,5 @@ export default function PremiumModal({ open, onClose }: PremiumModalProps) {
         </DialogFooter>
       </DialogContent>
     </Dialog>
-  );
+  )
 }

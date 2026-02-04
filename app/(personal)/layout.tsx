@@ -43,6 +43,7 @@ export const viewport: Viewport = {
 
 export default async function IndexRoute({children}: {children: React.ReactNode}) {
   const {data} = await sanityFetch({query: settingsQuery})
+
   return (
     <>
       <div

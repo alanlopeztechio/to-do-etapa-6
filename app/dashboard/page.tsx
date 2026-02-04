@@ -5,8 +5,7 @@ import RoleGate from '@/components/dashboard/RoleGate'
 import Tasks from '@/components/dashboard/Tasks'
 import ToDoForm from '@/components/dashboard/ToDoForm'
 import {SignOutButton, UserButton} from '@clerk/nextjs'
-import { Authenticated } from 'convex/react'
-
+import {Authenticated} from 'convex/react'
 import {LogOut} from 'lucide-react'
 
 const DashboardPage = () => {
@@ -32,7 +31,7 @@ const DashboardPage = () => {
                   <div>Admin Dashboard</div>
                 </RoleGate>
                 <SignOutButton>
-                  <button className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-gradient-to-r from-orange-600 to-orange-700 text-white font-medium rounded-lg hover:from-orange-700 hover:to-orange-800 shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto">
+                  <button className="flex items-center justify-center gap-2 px-4 sm:px-6 py-2.5 bg-gradient-to-r from-orange-600 to-orange-700 text-white font-medium rounded-[12px] hover:from-orange-700 hover:to-orange-800 shadow-md hover:shadow-lg transition-all duration-200 transform hover:scale-105 text-sm sm:text-base w-full sm:w-auto">
                     <LogOut size={18} />
                     Sign Out
                   </button>

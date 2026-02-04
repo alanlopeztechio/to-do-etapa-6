@@ -81,6 +81,9 @@ export const settingsQuery = defineQuery(`
       }
     },
     ogImage,
+    limitMessage,
+    successMessage,
+    limit
   }
 `)
 

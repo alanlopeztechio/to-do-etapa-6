@@ -1,5 +1,8 @@
 import './globals.css'
 import ConvexClientProvider from '@/components/ConvexClerkProvider'
+import {SettingsInitializer} from '@/components/SettingsInitializer'
+import {sanityFetch} from '@/sanity/lib/live'
+import {settingsQuery} from '@/sanity/lib/queries'
 import {ClerkProvider} from '@clerk/nextjs'
 import {IBM_Plex_Mono, Inter, PT_Serif} from 'next/font/google'
 
@@ -22,13 +25,19 @@ const mono = IBM_Plex_Mono({
 })
 
 export default async function RootLayout({children}: {children: React.ReactNode}) {
+  const {data: settings} = await sanityFetch({query: settingsQuery})
+
   return (
     <html lang="en" className={`${mono.variable} ${sans.variable} ${serif.variable}`}>
       <body>
+        <SettingsInitializer
+          dataClient={{
+            limitMessage: settings?.limitMessage || null,
+            successMessage: settings?.successMessage || null,
+          }}
+        />
         <ClerkProvider>
-          <ConvexClientProvider>
-            {children}
-          </ConvexClientProvider>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
         </ClerkProvider>
       </body>
     </html>

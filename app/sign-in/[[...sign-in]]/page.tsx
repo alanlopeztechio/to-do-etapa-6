@@ -20,7 +20,7 @@ export default function Page() {
             </p>
             <ul className="space-y-2 text-slate-200/80 text-sm">
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
                 Progreso en tiempo real
               </li>
               <li className="flex items-center gap-2">
@@ -28,13 +28,13 @@ export default function Page() {
                 Colaboración con tu equipo
               </li>
               <li className="flex items-center gap-2">
-                <span className="h-1.5 w-1.5 rounded-full bg-amber-300" />
+                <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
                 Estadísticas y reportes claros
               </li>
             </ul>
           </div>
 
-          <div className="relative z-10 bg-white/95 backdrop-blur flex items-center justify-center p-8 lg:p-10">
+          <div className="relative z-10 bg-red-500 backdrop-blur flex items-center justify-center p-8 lg:p-10 w-full">
             <SignIn
               appearance={{
                 layout: {
@@ -42,7 +42,6 @@ export default function Page() {
                   socialButtonsVariant: 'blockButton',
                 },
                 elements: {
-                  rootBox: 'w-full',
                   card: 'shadow-none border border-slate-200 rounded-2xl p-6',
                   headerTitle: 'text-slate-900 text-xl',
                   headerSubtitle: 'text-slate-500 text-sm',

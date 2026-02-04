@@ -17,6 +17,7 @@
     "@clerk/nextjs": "^6.37.1",
     "@hookform/resolvers": "^5.2.2",
     "@next/env": "16.1.6",
+    "@portabletext/react": "^6.0.2",
     "@radix-ui/react-dialog": "^1.1.15",
     "@sanity/client": "7.14.1",
     "@sanity/demo": "2.0.0",
@@ -31,6 +32,7 @@
     "classnames": "2.5.1",
     "clsx": "^2.1.1",
     "convex": "^1.31.7",
+    "convex-helpers": "^0.1.111",
     "date-fns": "4.1.0",
     "lucide-react": "^0.563.0",
     "next": "16.1.4",
@@ -41,7 +43,7 @@
     "react-hook-form": "^7.71.1",
     "react-live-transitions": "0.2.0",
     "rxjs": "7.8.2",
-    "sanity": "5.7.0",
+    "sanity": "^5.8.0",
     "sanity-plugin-asset-source-unsplash": "7.0.2",
     "server-only": "0.0.1",
     "sonner": "2.0.7",
@@ -54,6 +56,8 @@
   },
   "devDependencies": {
     "@ianvs/prettier-plugin-sort-imports": "4.7.0",
+    "@sanity/blueprints": "^0.10.0",
+    "@sanity/functions": "^1.2.0",
     "@sanity/prettier-config": "3.0.0",
     "@types/react": "19.2.10",
     "autoprefixer": "10.4.23",
@@ -65,8 +69,6 @@
     "prettier": "3.8.1",
     "prettier-plugin-tailwindcss": "0.7.2",
     "tailwindcss": "3.4.19",
-    "typescript": "5.9.3",
-    "@sanity/blueprints": "0.10.0",
-    "@sanity/functions": "1.2.0"
+    "typescript": "5.9.3"
   }
 }

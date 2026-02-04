@@ -574,7 +574,7 @@ type ArrayOf<T> = Array<
   }
 >
 
-// Source: sanity\lib\queries.ts
+// Source: sanity/lib/queries.ts
 // Variable: homePageQuery
 // Query: *[_type == "home"][0]{    _id,    _rev,    _type,    overview,    body,    showcaseProjects[]{      _key,      ...@->{        _id,        _type,        coverImage,        overview,        "slug": slug.current,        tags,        title,      }    },    title,  }
 export type HomePageQueryResult = {
@@ -632,7 +632,7 @@ export type HomePageQueryResult = {
   title: string | null
 } | null
 
-// Source: sanity\lib\queries.ts
+// Source: sanity/lib/queries.ts
 // Variable: pagesBySlugQuery
 // Query: *[_type == "page" && slug.current == $slug][0] {    _id,    _type,    body,    overview,    title,    "slug": slug.current,  }
 export type PagesBySlugQueryResult = {
@@ -657,7 +657,7 @@ export type PagesBySlugQueryResult = {
   slug: string | null
 } | null
 
-// Source: sanity\lib\queries.ts
+// Source: sanity/lib/queries.ts
 // Variable: projectBySlugQuery
 // Query: *[_type == "project" && slug.current == $slug][0] {    _id,    _type,    client,    coverImage,    description,    duration,    overview,    site,    "slug": slug.current,    tags,    title,  }
 export type ProjectBySlugQueryResult = {
@@ -725,9 +725,9 @@ export type ProjectBySlugQueryResult = {
   title: string | null
 } | null
 
-// Source: sanity\lib\queries.ts
+// Source: sanity/lib/queries.ts
 // Variable: settingsQuery
-// Query: *[_type == "settings"][0]{    _id,    _rev,    _type,    footer,    menuItems[]{      _key,      ...@->{        _type,        "slug": slug.current,        title      }    },    footer{      ...,      columns[]{        ...,        links[]{          ...,          "url" : select(          _type == 'linkExternal' =>url,          _type == 'linkInternal' =>reference->slug.current          ),          _type == 'linkInternal' => {            "type_reference": reference->_type          }        }      }    },    ogImage,  }
+// Query: *[_type == "settings"][0]{    _id,    _rev,    _type,    footer,    menuItems[]{      _key,      ...@->{        _type,        "slug": slug.current,        title      }    },    footer{      ...,      columns[]{        ...,        links[]{          ...,          "url" : select(          _type == 'linkExternal' =>url,          _type == 'linkInternal' =>reference->slug.current          ),          _type == 'linkInternal' => {            "type_reference": reference->_type          }        }      }    },    ogImage,    limitMessage,    successMessage,    limit  }
 export type SettingsQueryResult = {
   _id: string
   _rev: string
@@ -783,9 +783,51 @@ export type SettingsQueryResult = {
     crop?: SanityImageCrop
     _type: 'image'
   } | null
+  limitMessage: {
+    titulo?: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
+    features?: Array<string>
+  } | null
+  successMessage: {
+    titulo?: Array<{
+      children?: Array<{
+        marks?: Array<string>
+        text?: string
+        _type: 'span'
+        _key: string
+      }>
+      style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+      listItem?: 'bullet' | 'number'
+      markDefs?: Array<{
+        href?: string
+        _type: 'link'
+        _key: string
+      }>
+      level?: number
+      _type: 'block'
+      _key: string
+    }>
+  } | null
+  limit: number | null
 } | null
 
-// Source: sanity\lib\queries.ts
+// Source: sanity/lib/queries.ts
 // Variable: slugsByTypeQuery
 // Query: *[_type == $type && defined(slug.current)]{"slug": slug.current}
 export type SlugsByTypeQueryResult = Array<{
@@ -797,7 +839,7 @@ declare module '@sanity/client' {
     '\n  *[_type == "home"][0]{\n    _id,\n    _rev,\n    _type,\n    overview,\n    body,\n    showcaseProjects[]{\n      _key,\n      ...@->{\n        _id,\n        _type,\n        coverImage,\n        overview,\n        "slug": slug.current,\n        tags,\n        title,\n      }\n    },\n    title,\n  }\n': HomePageQueryResult
     '\n  *[_type == "page" && slug.current == $slug][0] {\n    _id,\n    _type,\n    body,\n    overview,\n    title,\n    "slug": slug.current,\n  }\n': PagesBySlugQueryResult
     '\n  *[_type == "project" && slug.current == $slug][0] {\n    _id,\n    _type,\n    client,\n    coverImage,\n    description,\n    duration,\n    overview,\n    site,\n    "slug": slug.current,\n    tags,\n    title,\n  }\n': ProjectBySlugQueryResult
-    '\n  *[_type == "settings"][0]{\n    _id,\n    _rev,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    footer{\n      ...,\n      columns[]{\n        ...,\n        links[]{\n          ...,\n          "url" : select(\n          _type == \'linkExternal\' =>url,\n          _type == \'linkInternal\' =>reference->slug.current\n          ),\n          _type == \'linkInternal\' => {\n            "type_reference": reference->_type\n          }\n        }\n      }\n    },\n    ogImage,\n  }\n': SettingsQueryResult
+    '\n  *[_type == "settings"][0]{\n    _id,\n    _rev,\n    _type,\n    footer,\n    menuItems[]{\n      _key,\n      ...@->{\n        _type,\n        "slug": slug.current,\n        title\n      }\n    },\n    footer{\n      ...,\n      columns[]{\n        ...,\n        links[]{\n          ...,\n          "url" : select(\n          _type == \'linkExternal\' =>url,\n          _type == \'linkInternal\' =>reference->slug.current\n          ),\n          _type == \'linkInternal\' => {\n            "type_reference": reference->_type\n          }\n        }\n      }\n    },\n    ogImage,\n    limitMessage,\n    successMessage,\n    limit\n  }\n': SettingsQueryResult
     '\n  *[_type == $type && defined(slug.current)]{"slug": slug.current}\n': SlugsByTypeQueryResult
   }
 }

@@ -1,4 +1,5 @@
 import {ConvexError, v} from 'convex/values'
+import {internal} from './_generated/api'
 import {mutation, query, QueryCtx} from './_generated/server'
 import {userByClerkId} from './users'
 
@@ -17,25 +18,33 @@ export const getAllTasks = async (ctx: QueryCtx, id: string) => {
 }
 
 export const addTask = mutation({
-  args: { text: v.string() },
+  args: {text: v.string()},
   handler: async (ctx, args) => {
-    const user = await identifyUser(ctx);
+    const user = await identifyUser(ctx)
 
-    const tasks = await getAllTasks(ctx, user._id);
+    const tasks = await getAllTasks(ctx, user._id)
 
-    if (tasks.length >= 7 && user.role == 'normal') {
+    const limit = await ctx.runQuery(internal.limit.getLimitInternal)
+
+    if (limit == null) {
+      throw new ConvexError({
+        message: 'Límite de tareas no configurado. Contacta al administrador.',
+      })
+    }
+
+    if (user.role == 'normal' && tasks.length >= limit) {
       throw new ConvexError({
         message: 'Límite de tareas alcanzado. Actualiza a Premium para más.',
-      });
+      })
     }
 
     ctx.db.insert('todos', {
       text: args.text,
       isCompleted: false,
       userId: user?._id!,
-    });
+    })
   },
-});
+})
 
 export const updateTask = mutation({
   args: {id: v.id('todos'), isCompleted: v.boolean()},

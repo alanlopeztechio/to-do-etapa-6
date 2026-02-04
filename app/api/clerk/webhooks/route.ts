@@ -23,11 +23,11 @@ export async function POST(req: NextRequest) {
         publicMetadata: {role: 'normal'},
       })
 
-        const userStripe = await stripe.customers.create({
-          name: res.firstName || 'No name',
-          email: res.emailAddresses[0]?.emailAddress || '',
-          metadata: {clerkUserId: res.id},
-        })
+      const userStripe = await stripe.customers.create({
+        name: res.firstName || 'No name',
+        email: res.emailAddresses[0]?.emailAddress || '',
+        metadata: {clerkUserId: res.id},
+      })
 
       const response = await fetchMutation(api.users.createUserWithClerkIdAndStripeCustomerId, {
         clerkId: res.id,
@@ -43,6 +43,15 @@ export async function POST(req: NextRequest) {
       console.log('Deleted userId:', evt.data.id)
       const response = await fetchMutation(api.users.deleteUserByClerkId, {
         clerkId: evt.data.id!,
+      })
+      return new Response('Webhook received', {status: 200, statusText: JSON.stringify(response)})
+    }
+
+    if (evt.type === 'user.updated') {
+      console.log('Updated userId:', evt.data.id)
+      const response = await fetchMutation(api.users.updateUserRoleByClerkId, {
+        clerkId: evt.data.id!,
+        role: (evt.data.public_metadata?.role as 'admin' | 'normal' | 'premium') || 'normal',
       })
       return new Response('Webhook received', {status: 200, statusText: JSON.stringify(response)})
     }

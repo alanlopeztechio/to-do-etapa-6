@@ -69,6 +69,23 @@ export const updateUserRole = mutation({
   },
 })
 
+export const updateUserRoleByClerkId = mutation({
+  args: {
+    role: v.union(v.literal('admin'), v.literal('normal'), v.literal('premium')),
+    clerkId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const user = await userByClerkId(ctx, args.clerkId)
+
+    if (!user) {
+      throw new Error('User not found')
+    }
+
+    await ctx.db.patch(user._id, {role: args.role})
+    return user._id
+  },
+})
+
 export const updateUserBilling = mutation({
   args: {
     stripeCustomerId: v.string(),
@@ -88,7 +105,7 @@ export const updateUserBilling = mutation({
     await ctx.db.patch(user._id, {
       subscriptionStatus: args.subscriptionStatus,
       endsAt: args.endsAt,
-      role : 'premium'
+      role: 'premium',
     })
 
     return user._id

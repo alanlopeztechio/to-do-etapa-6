@@ -69,7 +69,9 @@ export type TodoAction =
   | {type: 'LOAD_TODOS'; payload: TodoItem[]}
 
 export const TodoFormSchema = z.object({
-  text: z.string().min(10, 'La tarea debe de tener mínimo 10 caracteres'),
+  task: z
+    .string()
+    .min(1, 'Escribe una tarea'),
 })
 
 export type TodoFormData = z.infer<typeof TodoFormSchema>

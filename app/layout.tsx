@@ -23,12 +23,14 @@ const mono = IBM_Plex_Mono({
 
 export default async function RootLayout({children}: {children: React.ReactNode}) {
   return (
-    <ClerkProvider>
-      <ConvexClientProvider>
-        <html lang="en" className={`${mono.variable} ${sans.variable} ${serif.variable}`}>
-          <body>{children}</body>
-        </html>
-      </ConvexClientProvider>
-    </ClerkProvider>
+    <html lang="en" className={`${mono.variable} ${sans.variable} ${serif.variable}`}>
+      <body>
+        <ClerkProvider>
+          <ConvexClientProvider>
+            {children}
+          </ConvexClientProvider>
+        </ClerkProvider>
+      </body>
+    </html>
   )
 }

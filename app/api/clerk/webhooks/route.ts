@@ -1,5 +1,5 @@
 import {api} from '@/convex/_generated/api'
-// import {stripe} from '@/lib/stripe'
+import {stripe} from '@/lib/stripe'
 import {clerkClient} from '@clerk/nextjs/server'
 import {verifyWebhook} from '@clerk/nextjs/webhooks'
 import {fetchMutation, fetchQuery} from 'convex/nextjs'
@@ -23,18 +23,18 @@ export async function POST(req: NextRequest) {
         publicMetadata: {role: 'normal'},
       })
 
-      //   const userStripe = await stripe.customers.create({
-      //     name: res.firstName || 'No name',
-      //     email: res.emailAddresses[0]?.emailAddress || '',
-      //     metadata: {clerkUserId: res.id},
-      //   })
+        const userStripe = await stripe.customers.create({
+          name: res.firstName || 'No name',
+          email: res.emailAddresses[0]?.emailAddress || '',
+          metadata: {clerkUserId: res.id},
+        })
 
       const response = await fetchMutation(api.users.createUserWithClerkIdAndStripeCustomerId, {
         clerkId: res.id,
         email: res.emailAddresses[0]?.emailAddress || '',
         name: res.firstName || 'No Name',
-        role: 'premium',
-        stripeCustomerId: 'userStripe.id',
+        role: 'normal',
+        stripeCustomerId: userStripe.id,
       })
 
       return new Response('Webhook received', {status: 200, statusText: JSON.stringify(response)})

@@ -87,6 +87,8 @@ export const updateUserBilling = mutation({
 
     await ctx.db.patch(user._id, {
       subscriptionStatus: args.subscriptionStatus,
+      endsAt: args.endsAt,
+      role : 'premium'
     })
 
     return user._id

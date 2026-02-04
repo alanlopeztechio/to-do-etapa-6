@@ -2,6 +2,7 @@
 
 import { useQuery, useMutation } from 'convex/react';
 import { api } from '@/convex/_generated/api';
+import {type  Id } from '@/convex/_generated/dataModel';
 
 export const useTodos = () => {
   const tasks = useQuery(api.tasks.getTaskList);
@@ -15,17 +16,17 @@ export const useTodos = () => {
     return response;
   };
 
-  const updateTodo = async (id: string, isCompleted: boolean) => {
+  const updateTodo = async (id: Id<"todos">, isCompleted: boolean) => {
     try {
-      await updateTaskMutation({ id: id as any, isCompleted });
+      await updateTaskMutation({ id , isCompleted });
     } catch (error) {
       console.error('Error updating task:', error);
     }
   };
 
-  const deleteTodo = async (id: string) => {
+  const deleteTodo = async (id: Id<"todos">) => {
     try {
-      await deleteTaskMutation({ id: id as any });
+      await deleteTaskMutation({ id });
     } catch (error) {
       console.error('Error deleting task:', error);
     }

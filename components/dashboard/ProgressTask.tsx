@@ -18,10 +18,8 @@ const ProgressTask = () => {
     <div className="rounded-2xl border border-orange-200 bg-orange-50/80 backdrop-blur flex flex-row items-center gap-4 px-10 py-6 w-full justify-between shadow-lg">
       <div className="relative flex items-center justify-center w-[20vw] h-[20vw] max-w-[176px] max-h-[176px] min-w-[20px] min-h-[20px]">
         <svg
-          width="w-full"
-          height="w-full"
           viewBox="0 0 100 100"
-          className="transform rotate-[-90deg]"
+          className="transform rotate-[-90deg] w-full h-full"
         >
           <circle
             cx="50"

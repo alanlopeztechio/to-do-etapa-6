@@ -17,27 +17,25 @@ export const getAllTasks = async (ctx: QueryCtx, id: string) => {
 }
 
 export const addTask = mutation({
-  args: {text: v.string()},
+  args: { text: v.string() },
   handler: async (ctx, args) => {
-    const user = await identifyUser(ctx)
+    const user = await identifyUser(ctx);
 
-    const tasks = await getAllTasks(ctx, user._id)
+    const tasks = await getAllTasks(ctx, user._id);
 
     if (tasks.length >= 7 && user.role == 'normal') {
       throw new ConvexError({
         message: 'Límite de tareas alcanzado. Actualiza a Premium para más.',
-      })
+      });
     }
 
-    const response = await ctx.db.insert('todos', {
+    ctx.db.insert('todos', {
       text: args.text,
       isCompleted: false,
       userId: user?._id!,
-    })
-
-    return response
+    });
   },
-})
+});
 
 export const updateTask = mutation({
   args: {id: v.id('todos'), isCompleted: v.boolean()},

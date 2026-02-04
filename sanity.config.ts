@@ -62,6 +62,7 @@ export default defineConfig({
       ctaSection,
     ],
   },
+
   plugins: [
     structureTool({
       structure: pageStructure([home, settings]),

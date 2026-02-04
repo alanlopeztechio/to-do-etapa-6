@@ -5,14 +5,17 @@ import type {SettingsQueryResult} from '@/sanity.types'
 import {useSettingsStore} from '@/stores/SettingsStore'
 import {useEffect} from 'react'
 
-type LimitMessage = NonNullable<SettingsQueryResult>['limitMessage'] | null
+type LimitMessage = NonNullable<SettingsQueryResult> | null
 
 export function SettingsInitializer({limitMessage}: {limitMessage: LimitMessage}) {
-  const setLimitMessage = useSettingsStore((s) => s.setLimitMessage)
+  const setDataClient = useSettingsStore((s) => s.setDataClient)
 
   useEffect(() => {
-    setLimitMessage(limitMessage)
-  }, [limitMessage, setLimitMessage])
+    setDataClient({
+      limitMessage: limitMessage?.limitMessage || null,
+      successMessage: limitMessage?.successMessage || null,
+    })
+  }, [limitMessage, setDataClient])
 
   return null
 }
